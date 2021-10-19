@@ -258,6 +258,7 @@ class Create_tetraminos:
 
 
     def rtt(self):
+
         self.nettoyeur3000()
         self.rotation += 1
         if self.rotation == 4:
@@ -267,7 +268,18 @@ class Create_tetraminos:
             for i in range(0,4):
                 if self.tetra[j][i] == self.random+1:
                     self.tetra[j][i] = self.pieceId
-        self.nettoyeur3000()
+        if self.SaTouchePas():
+            self.nettoyeur3000()
+            self.jeu()
+        else:
+            self.rotation -= 1
+            if self.rotation == -1:
+                self.rotation = 4
+            self.tetra = deepcopy(self.pieces[self.rotation][self.random])
+            for j in range(0,4):
+                for i in range(0,4):
+                    if self.tetra[j][i] == self.random+1:
+                        self.tetra[j][i] = self.pieceId
         self.jeu()
         
     def handleLeftKey(self):
